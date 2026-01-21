@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Smart AI Customer Service</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<div class="chat-container">
+    <h2>🤖 Smart AI Customer Service</h2>
+    <select id="domain">
+        <option value="banking">Banking</option>
+        <option value="hospital">Hospital</option>
+        <option value="education">Education</option>
+        <option value="ecommerce">E-Commerce</option>
+        <option value="it">IT Support</option>
+    </select>
+    <div id="chat-box"></div>
+    <input type="text" id="user-input" placeholder="Type your message..." />
+    <button onclick="sendMessage()">Send</button>
+</div>
+<script src="/static/script.js"></script>
+</body>
+</html>
