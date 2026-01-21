@@ -4,48 +4,46 @@ app = Flask(__name__)
 
 DOMAIN_DATA = {
     "banking": {
-        "balance": "You can check balance via ATM or mobile banking. Want steps?",
-        "loan": "Home, Personal and Education loans available. Which one?",
-        "card": "Lost card? Please block it immediately. Need guidance?",
-        "account": "Account verification required. Savings or current account?"
+        "balance": "You can check balance via ATM or mobile banking.",
+        "loan": "We offer Home, Personal, and Education loans.",
+        "card": "If card is lost, block it immediately.",
+        "account": "Account verification is required."
     },
     "hospital": {
-        "appointment": "Book appointment online or offline. Which do you prefer?",
-        "doctor": "Please tell the department name.",
-        "emergency": "Visit ER immediately or call ambulance.",
-        "report": "Reports available after 24 hours."
+        "appointment": "Appointments can be booked online or offline.",
+        "doctor": "Please specify the department.",
+        "emergency": "Visit emergency ward immediately.",
+        "report": "Reports are available after 24 hours."
     },
     "education": {
-        "admission": "Admissions are open now. UG or PG?",
-        "course": "Engineering, Arts, Science and Management courses available.",
-        "exam": "Semester-wise exams conducted.",
-        "fees": "Fees depend on course selection."
+        "admission": "Admissions are currently open.",
+        "course": "Engineering, Arts, Science courses available.",
+        "exam": "Exams are semester-based.",
+        "fees": "Fees depend on the selected course."
     },
     "ecommerce": {
-        "order": "Please provide order ID to track order.",
-        "refund": "Refunds processed within 5-7 days.",
-        "return": "Returns accepted within 10 days.",
-        "delivery": "Delivery in 3-5 working days."
+        "order": "Provide order ID to track order.",
+        "refund": "Refunds processed in 5–7 days.",
+        "return": "Returns allowed within 10 days.",
+        "delivery": "Delivery takes 3–5 days."
     },
     "it": {
-        "login": "Please verify username and password.",
+        "login": "Check username and password.",
         "password": "Reset password using OTP.",
-        "error": "Please share error code.",
-        "network": "Restart router to fix network issues."
+        "error": "Please share the error code.",
+        "network": "Restart router to resolve network issues."
     }
 }
 
-def ai_response(domain, message):
-    msg = message.lower()
-    if any(w in msg for w in ["hi", "hello", "hey"]):
-        return "Hello! How can I help you today?"
-
+def ai_response(domain, msg):
+    msg = msg.lower()
+    if msg in ["hi", "hello", "hey"]:
+        return "Hello 👋 I'm your AI assistant. How can I help you?"
     if domain in DOMAIN_DATA:
-        for key, val in DOMAIN_DATA[domain].items():
+        for key in DOMAIN_DATA[domain]:
             if key in msg:
-                return val
-
-    return "Sorry, I didn't understand. Please explain more."
+                return DOMAIN_DATA[domain][key]
+    return "Can you please explain your issue more clearly?"
 
 @app.route('/')
 def home():
@@ -55,7 +53,7 @@ def home():
 def chat():
     data = request.json
     reply = ai_response(data['domain'], data['message'])
-    return jsonify({'reply': reply})
+    return jsonify({"reply": reply})
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     app.run(debug=True)
